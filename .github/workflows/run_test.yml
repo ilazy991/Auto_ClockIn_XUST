@@ -9,6 +9,8 @@ on:
   pull_request:
     branches: [ main ]
 
+  release:
+    types: [main]
 jobs:
   deploy:
 
@@ -21,6 +23,9 @@ jobs:
       with:
         python-version: 3.8
         
-  deploy:
+    - name: Build and publish
+      env:  
+        username_text: ${{ secrets.USERNAME_TEXT }}
+        password_text : ${{ secrets.PASSWORD_TEXT }}
     - name: Test with pytest
       run: python test.py
