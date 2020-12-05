@@ -4,12 +4,7 @@
 name: Python-TEST
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  release:
-    types: [main]
+  fork:
     
 jobs:
   TEST:
@@ -23,13 +18,14 @@ jobs:
     
     
     
-    - name: Prepare Selenium
+    - name: Prepare 
       # https://github.com/marketplace/actions/setup-chromedriver
       uses: nanasess/setup-chromedriver@master
     - name: Launch browser
       run: |
         
         pip install selenium
+        pip install configparser
         google-chrome --version
         export DISPLAY=:99
         chromedriver --url-base=/wd/hub &
