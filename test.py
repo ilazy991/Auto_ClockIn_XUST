@@ -152,7 +152,7 @@ url_login = 'http://ids.xust.edu.cn/authserver/login?service=http%3A%2F%2Fehallm
 # username_text = os.environ["SCKEY"]
 USERNAME_TEXT = os.environ["USERNAME_TEXT"]
 PASSWORD_TEXT = os.environ["PASSWORD_TEXT"]
-msg_to = 616119901@qq.com
+MSG_TO = os.environ["MSG_TO"]
 
 
 status, e = fun1(USERNAME_TEXT, PASSWORD_TEXT)
