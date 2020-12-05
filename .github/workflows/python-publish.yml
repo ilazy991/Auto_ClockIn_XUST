@@ -8,12 +8,11 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
   release:
     types: [main]
+    
 jobs:
   deploy:
-
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -21,9 +20,8 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    - name: Build and publish
+    - name: Test
       env:  
         username_text: ${{ secrets.USERNAME_TEXT }}
         password_text : ${{ secrets.PASSWORD_TEXT }}
-    - name: Test with pytest
       run: python test.py
