@@ -47,5 +47,5 @@ jobs:
     - name: Working
       env:  
         USERNAME_TEXT: ${{ secrets.USERNAME_TEXT }}
-        USERNAME_TEXT : ${{ secrets.PASSWORD_TEXT }}
+        PASSWORD_TEXT : ${{ secrets.PASSWORD_TEXT }}
       run: python test.py
