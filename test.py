@@ -35,4 +35,4 @@ time.sleep(2)
 print(html)
 
 # close web browser
-browser.close()
+driver.close()
