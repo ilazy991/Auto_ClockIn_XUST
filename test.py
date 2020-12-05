@@ -28,7 +28,7 @@ chrome_options.add_argument('window-size=1024,768')  # 16年之后，chrome给�
 chrome_options.add_argument('--headless')  # 16年之后，chrome给出的解决办法，抢了PhantomJS饭碗
 chrome_options.add_argument('--disable-gpu')
 #chrome_options.add_argument('--no-sandbox')  # root用户不加这条会无法运行
-driver = webdriver.Chrome(executable_path=chromePath, options=chrome_options)  # 获取浏览器句柄
+driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
 
 # 3.访问西科E站登录页面
 driver.get("https://baidu.com")
