@@ -29,7 +29,7 @@ chrome_options.add_argument('--disable-gpu')
 driver = webdriver.Chrome(executable_path=chromePath, options=chrome_options)  # 获取浏览器句柄
 
 # 3.访问西科E站登录页面
-driver.get("baidu.com")
+driver.get("https://baidu.com")
 html = driver.page_source
 time.sleep(2)
 print(html)
