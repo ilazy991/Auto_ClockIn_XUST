@@ -149,18 +149,18 @@ def fun1(username_text,password_text):
         return False, e
 
 
-url_login = http://ids.xust.edu.cn/authserver/login?service=http%3A%2F%2Fehallmobile.xust.edu.cn%2Fossh_server%2FmobileCaslogin
+url_login = 'http://ids.xust.edu.cn/authserver/login?service=http%3A%2F%2Fehallmobile.xust.edu.cn%2Fossh_server%2FmobileCaslogin'
 # username_text = os.environ["SCKEY"]
 USERNAME_TEXT = os.environ["USERNAME_TEXT"]
 PASSWORD_TEXT = os.environ["PASSWORD_TEXT"]
 msg_to = 616119901@qq.com
 
 
-status, e = fun1()
+status, e = fun1(USERNAME_TEXT, PASSWORD_TEXT)
 text=""
 if(status == False):
     print("重新再次打卡")
-    status, e = fun1()
+    status, e = fun1(USERNAME_TEXT, PASSWORD_TEXT)
     if(status == False):
         text =  "打卡失败:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + str(e)
     else:
