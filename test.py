@@ -9,7 +9,6 @@ import os
 import sys,traceback
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from setmail import setmail
 
 
 
