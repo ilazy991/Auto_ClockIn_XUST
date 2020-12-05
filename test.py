@@ -169,5 +169,5 @@ else:
     text =  "打卡成功:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
     #setmail(path, text, msg_to)
-
+print(text)
 
