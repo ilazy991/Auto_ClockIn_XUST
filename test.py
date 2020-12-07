@@ -70,8 +70,11 @@ def fun1(username_text,password_text):
         # desired_capabilities["pageLoadStrategy"] = "normal"  # 注释这两行会导致最后输出结果的延迟，即等待页面加载完成再输出
 
         # 获取继续打卡按钮并点击
-        #driver.find_element_by_xpath("//*[text()='继续打卡']").click()
-        driver.find_element_by_xpath("/html/body/div/div[3]/p/span[1]").click()
+        target = driver.find_element_by_xpath("//*[text()='继续打卡']")
+        time.sleep(3) #定位到之后等待3s执行click()
+        target.click()
+
+        #driver.find_element_by_xpath("/html/body/div/div[3]/p/span[1]").click()
         time.sleep(10)
 
         # 获取点击获取详细地址按钮并点击
