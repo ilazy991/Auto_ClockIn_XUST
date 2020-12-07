@@ -78,7 +78,8 @@ def fun1(username_text,password_text):
             pass
 
         # 获取点击获取详细地址按钮并点击
-        target = driver.find_element_by_xpath("//*[text()='点击获取详细地址']")
+        #target = driver.find_element_by_xpath("//*[text()='点击获取详细地址']")
+        target = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div[3]/ul[1]/li[3]/span"）
         driver.execute_script("arguments[0].scrollIntoView();", target)
         target.click()
 
@@ -158,8 +159,8 @@ MSG_TO = os.environ["MSG_TO"]
 status, e = fun1(USERNAME_TEXT, PASSWORD_TEXT)
 text=""
 if(status == False):
-    print("重新再次打卡")
-    status, e = fun1(USERNAME_TEXT, PASSWORD_TEXT)
+#     print("重新再次打卡")
+#     status, e = fun1(USERNAME_TEXT, PASSWORD_TEXT)
     if(status == False):
         text =  "打卡失败:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + str(e)
     else:
