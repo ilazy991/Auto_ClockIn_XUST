@@ -26,10 +26,10 @@ chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)  # �
 prefs = {"profile.managed_default_content_settings.images": 2, 'permissions.default.stylesheet': 2}  # 禁止加载图片和CSS样式
 chrome_options.add_experimental_option("prefs", prefs)
 
-chrome_options.add_argument('window-size=1024,768')  # 16年之后，chrome给出的解决办法，抢了PhantomJS饭碗
+#chrome_options.add_argument('window-size=1024,768')  # 16年之后，chrome给出的解决办法，抢了PhantomJS饭碗
 chrome_options.add_argument('--headless')  # 16年之后，chrome给出的解决办法，抢了PhantomJS饭碗
 chrome_options.add_argument('--disable-gpu')
-#chrome_options.add_argument('--no-sandbox')  # root用户不加这条会无法运行
+chrome_options.add_argument('--no-sandbox')  # root用户不加这条会无法运行
 # driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
 
 # # 3.访问西科E站登录页面
