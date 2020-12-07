@@ -63,22 +63,19 @@ def fun1(username_text,password_text):
 
         time.sleep(1)
 
-        try:
-            # 获取CheckBox复选框(我已认证阅读)并点击
-            btn_div = driver.find_element_by_css_selector('input[type=checkbox]')
-            driver.execute_script("arguments[0].click();", btn_div)
+        # 获取CheckBox复选框(我已认证阅读)并点击
+        btn_div = driver.find_element_by_css_selector('input[type=checkbox]')
+        driver.execute_script("arguments[0].click();", btn_div)
 
-            # desired_capabilities["pageLoadStrategy"] = "normal"  # 注释这两行会导致最后输出结果的延迟，即等待页面加载完成再输出
+        # desired_capabilities["pageLoadStrategy"] = "normal"  # 注释这两行会导致最后输出结果的延迟，即等待页面加载完成再输出
 
-            # 获取继续打卡按钮并点击
-            driver.find_element_by_xpath("//*[text()='继续打卡']").click()
-            time.sleep(10)
-        except Exception as e:
-            pass
+        # 获取继续打卡按钮并点击
+        driver.find_element_by_xpath("//*[text()='继续打卡']").click()
+        time.sleep(10)
 
         # 获取点击获取详细地址按钮并点击
-        #target = driver.find_element_by_xpath("//*[text()='点击获取详细地址']")
-        target = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div[3]/ul[1]/li[3]/span")
+        target = driver.find_element_by_xpath("//*[text()='点击获取详细地址']")
+        #target = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div[3]/ul[1]/li[3]/span")
         driver.execute_script("arguments[0].scrollIntoView();", target)
         target.click()
 
