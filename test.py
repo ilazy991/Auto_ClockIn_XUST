@@ -79,7 +79,7 @@ def fun1(username_text,password_text):
 
         # 获取点击获取详细地址按钮并点击
         #target = driver.find_element_by_xpath("//*[text()='点击获取详细地址']")
-        target = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div[3]/ul[1]/li[3]/span"）
+        target = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div[3]/ul[1]/li[3]/span")
         driver.execute_script("arguments[0].scrollIntoView();", target)
         target.click()
 
