@@ -152,7 +152,6 @@ url_login = 'http://ids.xust.edu.cn/authserver/login?service=http%3A%2F%2Fehallm
 # username_text = os.environ["SCKEY"]
 USERNAME_TEXT = os.environ["USERNAME_TEXT"]
 PASSWORD_TEXT = os.environ["PASSWORD_TEXT"]
-SERVERPUSHKEY = os.environ["SERVERPUSHKEY"]
 MSG_TO = os.environ["MSG_TO"]
 
 
@@ -169,7 +168,10 @@ if(status == False):
 else:
     text =  "打卡成功:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
-driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
-url = "https://sc.ftqq.com/"+SERVERPUSHKEY+".send?text="+text+"desp="+desp
-driver.get(url)
+
+if "SERVERPUSHKEY" in os.environ:
+    driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
+    SERVERPUSHKEY = os.environ["SERVERPUSHKEY"]
+    url = "https://sc.ftqq.com/"+SERVERPUSHKEY+".send?text="+text+"desp="+desp
+    driver.get(url)
 
