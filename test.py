@@ -143,8 +143,6 @@ def fun1(username_text,password_text):
         finally:
             driver.quit()
     except Exception as e:
-        print(e)
-        print(driver.page_source)
         print(traceback.format_exc())
         driver.quit()
         return False, e
@@ -154,21 +152,24 @@ url_login = 'http://ids.xust.edu.cn/authserver/login?service=http%3A%2F%2Fehallm
 # username_text = os.environ["SCKEY"]
 USERNAME_TEXT = os.environ["USERNAME_TEXT"]
 PASSWORD_TEXT = os.environ["PASSWORD_TEXT"]
+SERVERPUSHKEY = os.environ["SERVERPUSHKEY"]
 MSG_TO = os.environ["MSG_TO"]
 
 
 status, e = fun1(USERNAME_TEXT, PASSWORD_TEXT)
-text=""
+desp=""
 if(status == False):
-#     print("重新再次打卡")
-#     status, e = fun1(USERNAME_TEXT, PASSWORD_TEXT)
+    print("重新再次打卡")
+    status, e = fun1(USERNAME_TEXT, PASSWORD_TEXT)
     if(status == False):
-        text =  "打卡失败:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + str(e)
+        text =  "打卡失败:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        desp = str(e)
     else:
         text =  "打卡成功:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 else:
     text =  "打卡成功:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
-    #setmail(path, text, msg_to)
-print(text)
+driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
+url = 'https://sc.ftqq.com/'+SERVERPUSHKEY+'.send?text='+text+'desp='+desp'
+driver.get(url)
 
