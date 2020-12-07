@@ -161,13 +161,12 @@ if(status == False):
     print("重新再次打卡")
     status, e = fun1(USERNAME_TEXT, PASSWORD_TEXT)
     if(status == False):
-        text =  "打卡失败:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        text =  "打卡失败:"
         desp = str(e)
     else:
-        text =  "打卡成功:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        text =  "打卡成功:"
 else:
-    text =  "打卡成功:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-
+    text =  "打卡成功:"
 
 if "SERVERPUSHKEY" in os.environ:
     driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
