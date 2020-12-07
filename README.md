@@ -29,17 +29,6 @@
 
 4. **开启 Actions 并触发每日自动执行**
 
-**Github Actions 默认处于关闭状态，还大家请手动开启 Actions ，执行一次工作流，验证是否可以正常工作。**
-
-**Fork 仓库后，GitHub 默认不自动执行 Actions 任务，请修改 `.github/trigger.json` 文件,将 `trigger` 的值改为 `1`，这样每天就会自动执行定时任务了。**
-
-```patch
-{
-- "trigger": 0
-+ "trigger": 1
-}
-```
-
 如果需要修改每日任务执行的时间，请修改 `.github/workflows/运行.yml`，找到下如下配置。
 
 ```yml
@@ -59,7 +48,7 @@
 1. 前往 [sc.ftqq.com](http://sc.ftqq.com/3.version) 点击登入，创建账号（建议使用 GitHub 登录）。
 2. 点击点[发送消息](http://sc.ftqq.com/?c=code) ，生成一个 Key。将其增加到 Github Secrets 中，变量名为 `SERVERPUSHKEY`
 3. [绑定微信账号](http://sc.ftqq.com/?c=wechat&a=bind) ，开启微信推送。
-![图示](docs/IMG/serverpush.png)
+
 
 # 免责声明
 
