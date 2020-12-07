@@ -15,16 +15,21 @@
 * [x] 通过server酱推送执行结果到微信。
 
 # 使用说明
-## 一、Actions 方式
-
 1. **Fork 本项目**
 
-3. **点击项目 Settings -> Secrets -> New Secrets 添加以下2个 Secrets。**
+2. **点击项目 Settings -> Secrets -> New Secrets 添加以下2个 Secrets。**
 
 | Name       | Value            |
 | ---------- | ---------------- |
 | USERNAME_TEXT | 西科E站账号 |
 | PASSWORD_TEXT   | 西科E站密码 |
+3.如需微信订阅通知请如下操作
+
+## 订阅执行结果
+
+1 前往 [sc.ftqq.com](http://sc.ftqq.com/3.version) 点击登入，创建账号（建议使用 GitHub 登录）。
+2 点击点[发送消息](http://sc.ftqq.com/?c=code) ，生成一个 Key。将其增加到 Github Secrets 中，变量名为 `SERVERPUSHKEY`
+3 [绑定微信账号](http://sc.ftqq.com/?c=wechat&a=bind) ，开启微信推送。
 
 
 4. **开启 Actions 并触发每日自动执行**
@@ -37,19 +42,11 @@
     # cron表达式，Actions时区是UTC时间，所以下午18点要往前推8个小时。
     # 示例： 每天晚上22点30执行 '30 14 * * *'
 ```
+
+
 **请各位使用 Actions 时务必遵守Github条款。不要滥用Actions服务。**
 
 **Please be sure to abide by the Github terms when using Actions. Do not abuse the Actions service.**
-
-# 微信订阅通知
-
-## 订阅执行结果
-
-1. 前往 [sc.ftqq.com](http://sc.ftqq.com/3.version) 点击登入，创建账号（建议使用 GitHub 登录）。
-2. 点击点[发送消息](http://sc.ftqq.com/?c=code) ，生成一个 Key。将其增加到 Github Secrets 中，变量名为 `SERVERPUSHKEY`
-3. [绑定微信账号](http://sc.ftqq.com/?c=wechat&a=bind) ，开启微信推送。
-
-
 # 免责声明
 
 1. 本工具不会记录你的任何敏感信息，也不会上传到任何服务器上。（数据均存在Actions Secrets中或者用户自己的设备上）
