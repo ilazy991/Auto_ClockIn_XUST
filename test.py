@@ -172,6 +172,8 @@ else:
 if "SERVERPUSHKEY" in os.environ:
     driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
     SERVERPUSHKEY = os.environ["SERVERPUSHKEY"]
-    url = "https://sc.ftqq.com/"+SERVERPUSHKEY+".send?text="+text+"desp="+desp
+    url = "https://sc.ftqq.com/"+SERVERPUSHKEY+".send?text="+text
+    if(len(desp)):
+      url += "desp="+desp
     driver.get(url)
 
