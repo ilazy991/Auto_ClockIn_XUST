@@ -23,10 +23,9 @@
 | ---------- | ---------------- |
 | USERNAME_TEXT | 西科E站账号 |
 | PASSWORD_TEXT   | 西科E站密码 |
+
+
 3.如需微信订阅通知请如下操作
-
-## 订阅执行结果
-
 1 前往 [sc.ftqq.com](http://sc.ftqq.com/3.version) 点击登入，创建账号（建议使用 GitHub 登录）。
 2 点击点[发送消息](http://sc.ftqq.com/?c=code) ，生成一个 Key。将其增加到 Github Secrets 中，变量名为 `SERVERPUSHKEY`
 3 [绑定微信账号](http://sc.ftqq.com/?c=wechat&a=bind) ，开启微信推送。
