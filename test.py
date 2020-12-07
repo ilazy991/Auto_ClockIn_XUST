@@ -72,9 +72,8 @@ def fun1(username_text,password_text):
 
             # 获取继续打卡按钮并点击
             driver.find_element_by_xpath("//*[text()='继续打卡']").click()
-            time.sleep(1)
+            time.sleep(10)
         except Exception as e:
-            print(e)
             pass
 
         # 获取点击获取详细地址按钮并点击
