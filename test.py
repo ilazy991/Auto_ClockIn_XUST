@@ -144,6 +144,7 @@ def fun1(username_text,password_text):
             driver.quit()
     except Exception as e:
         print(e)
+        print(driver.page_source)
         print(traceback.format_exc())
         driver.quit()
         return False, e
