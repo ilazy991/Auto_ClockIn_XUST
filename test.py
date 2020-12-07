@@ -55,7 +55,7 @@ def fun1(username_text,password_text):
         time.sleep(1)
         try:
             driver.find_element_by_xpath('/html/body/uni-app/uni-page/uni-page-wrapper/uni-page-body/uni-scroll-view/div/div/div/uni-view/uni-scroll-view/div/div/div/uni-view[1]').click()
-            time.sleep(5)
+            time.sleep(3)
         except Exception as e:
             print(e)
             pass
@@ -75,7 +75,7 @@ def fun1(username_text,password_text):
         target.click()
 
         #driver.find_element_by_xpath("/html/body/div/div[3]/p/span[1]").click()
-        time.sleep(10)
+        time.sleep(1)
 
         # 获取点击获取详细地址按钮并点击
         #target = driver.find_element_by_xpath("//*[text()='点击获取详细地址']")
@@ -170,6 +170,6 @@ else:
     text =  "打卡成功:" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
 driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
-url = 'https://sc.ftqq.com/'+SERVERPUSHKEY+'.send?text='+text+'desp='+desp'
+url = "https://sc.ftqq.com/"+SERVERPUSHKEY+".send?text="+text+"desp="+desp
 driver.get(url)
 
