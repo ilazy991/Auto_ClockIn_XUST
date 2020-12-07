@@ -1,33 +1,20 @@
 <div align="center">
 <h1 align="center">
-BILIBILI-HELPER
-</h1>
+西安科技大学每日自动健康打卡
+ </h1>
 
-[![GitHub stars](https://img.shields.io/github/stars/JunzhouLiu/BILIBILI-HELPER?style=flat-square)](https://github.com/JunzhouLiu/BILIBILI-HELPER/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/JunzhouLiu/BILIBILI-HELPER?style=flat-square)](https://github.com/JunzhouLiu/BILIBILI-HELPER/network)
-[![GitHub issues](https://img.shields.io/github/issues/JunzhouLiu/BILIBILI-HELPER?style=flat-square)](https://github.com/JunzhouLiu/BILIBILI-HELPER/issues)
-[![GitHub license](https://img.shields.io/github/license/JunzhouLiu/BILIBILI-HELPER?style=flat-square)](https://github.com/JunzhouLiu/BILIBILI-HELPER/blob/main/LICENSE) 
-[![GitHub All Releases](https://img.shields.io/github/downloads/JunzhouLiu/BILIBILI-HELPER/total?style=flat-square)](https://github.com/JunzhouLiu/BILIBILI-HELPER/releases)
-[![GitHub contributors](https://img.shields.io/github/contributors/JunzhouLiu/BILIBILI-HELPER?style=flat-square)](https://github.com/JunzhouLiu/BILIBILI-HELPER/graphs/contributors)
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/JunzhouLiu/BILIBILI-HELPER?style=flat-square)
 
 </div>
 
 # 工具简介
 
-这是一个利用 Linux Crontab , GitHub Action 等方式实现哔哩哔哩（Bilibili）每日任务投币，点赞，分享视频，直播签到，银瓜子兑换硬币，漫画每日签到，简单配置即可每日轻松获取 65 经验值，快来和我一起成为 Lv6 吧~~~~
 
 **如果觉得好用，顺手点个 Star 吧 ❤**
 
-**仓库地址：[JunzhouLiu/BILIBILI-HELPER](https://github.com/JunzhouLiu/BILIBILI-HELPER)**
-
-* [x] 每天上午 9 点 10 分自动开始任务。*【运行时间可自定义】*
+* [x] 每天上午 11 点 10 分与下午8点自动开始任务。*【运行时间可自定义】*
 * [x] 通过server酱推送执行结果到微信。
 
-[点击快速开始使用](#使用说明)
-
 # 使用说明
-
 ## 一、Actions 方式
 
 1. **Fork 本项目**
