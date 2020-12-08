@@ -24,18 +24,6 @@ jobs:
       with:
         python-version: 3.8
     
-    - name: Prepare 
-      # https://github.com/marketplace/actions/setup-chromedriver
-      uses: nanasess/setup-chromedriver@master
-    - name: Launch browser
-      run: |
-        
-        pip install selenium
-        pip install configparser
-        google-chrome --version
-        export DISPLAY=:99
-        chromedriver --url-base=/wd/hub &
-        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional, disables headless mode
     - name: Working
       env:  
         USERNAME_TEXT: ${{ secrets.USERNAME_TEXT }}
