@@ -3,7 +3,10 @@
 
 name: 构建
 on:
-  fork
+  fork:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
