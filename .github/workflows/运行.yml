@@ -19,29 +19,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-    
-    - name: Prepare 
-      # https://github.com/marketplace/actions/setup-chromedriver
-      uses: nanasess/setup-chromedriver@master
-    - name: Launch browser
+        
+    - name: 配置用户信息(必须先配置secrets)并生成配置文件config.json
       run: |
-        
-        pip install selenium
-        pip install configparser
-        google-chrome --version
-        export DISPLAY=:99
-        chromedriver --url-base=/wd/hub &
-        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional, disables headless mode
-        
-    - name: Working
-      env:  
-        USERNAME_TEXT: ${{ secrets.USERNAME_TEXT }}
-        PASSWORD_TEXT: ${{ secrets.PASSWORD_TEXT }}
-        SERVERPUSHKEY: ${{ secrets.SERVERPUSHKEY }}
-        MSG_TO: ${{ secrets.MSG_TO }}
-      run: python test.py
+        echo "尝试读取secrets(config)"
+        string='${{ secrets.config }}'
+        if [ -z "$string" ]; then
+        echo "secrets(config)未填写"
+        exit -1
+        fi
+        array=(${string})
+        sed -i "s/user/${array[0]}/g" ./config/config.json
+        sed -i "s/password/${array[1]}/g" ./config/config.json
+        sed -i "s/SERVERPUSHKEY/${array[2]}/g" ./config/config.json
+        echo "成功用secrets(config)生成配置文件config.json"
+        cat ./config/config.json
       
