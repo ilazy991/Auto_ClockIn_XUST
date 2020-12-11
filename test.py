@@ -168,7 +168,7 @@ if(status == False):
 else:
     text =  "打卡成功:"
 
-if "SERVERPUSHKEY" in os.environ:
+if "SERVERPUSHKEY" in os.environ and text == "打卡失败:":
     driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
     SERVERPUSHKEY = os.environ["SERVERPUSHKEY"]
     url = "https://sc.ftqq.com/"+SERVERPUSHKEY+".send?text="+text
