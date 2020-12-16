@@ -5,8 +5,6 @@ name: 构建
 on:
   fork:
   push:
-    branches:
-      - main
 
 jobs:
   build:
