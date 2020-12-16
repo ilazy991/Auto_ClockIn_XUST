@@ -215,13 +215,13 @@ if __name__ == '__main__':
     status= ""
     print("开始为"+username_text+"打卡")
     try:
-        status = daka(driver, username_text, password_text)
+        status = daka(username_text, password_text)
     except Exception as e:
         print(traceback.format_exc())
     if(status == "error"):
         print("重新再次打卡")
         try:
-            status = daka(driver, username_text, password_text)
+            status = daka(username_text, password_text)
         except Exception as e:
             print(traceback.format_exc())
             
