@@ -19,6 +19,8 @@ import json
 from setmail import setmail
 
 
+
+
 def getDriver(windows = True):
     mobile_emulation = {"deviceMetrics": {"width": 360, "height": 640, "pixelRatio": 3.0},
                         "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"}
@@ -31,20 +33,26 @@ def getDriver(windows = True):
     prefs = {"profile.managed_default_content_settings.images": 2, 'permissions.default.stylesheet': 2}  # 禁止加载图片和CSS样式
     chrome_options.add_experimental_option("prefs", prefs)
     chrome_options.add_argument('window-size=1024,768')  # 16年之后，chrome给出的解决办法，抢了PhantomJS饭碗
-    chrome_options.add_argument('connection_timeout=60')
     chrome_options.add_argument("--disable-crash-reporter")
     chrome_options.add_argument("--disable-extensions")
     chrome_options.add_argument("--disable-web-security")
+    chrome_options.add_argument('--ignore-certificate-errors')
+
     chrome_options.add_argument('--disable-logging')
     chrome_options.add_argument("--log-level=3")
     chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    chrome_options.add_argument("--disable-dev-shm-usage")
 
-    chrome_options.add_argument("--output=/dev/null");
+    chrome_options.add_argument("--output=/dev/null")
+
+    wire_options = {
+        'connection_timeout': 60
+    }
     if windows == False:
         chrome_options.add_argument('--headless')  # 16年之后，chrome给出的解决办法，抢了PhantomJS饭碗
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--no-sandbox')  # root用户不加这条会无法运行
-    driver = webdriver.Chrome(options=chrome_options, service_log_path='NUL')  # 获取浏览器句柄
+    driver = webdriver.Chrome(seleniumwire_options=wire_options, options=chrome_options)  # 获取浏览器句柄
     return driver
 
 
@@ -116,6 +124,7 @@ def getDataAndCookies(driver, url):
         }
     }
     driver.get(url)
+    time.sleep(1)
     cookie = "JSESSIONID="+driver.get_cookies()[0]["value"]
 
     for request in driver.requests:
@@ -139,8 +148,10 @@ def getDataAndCookies(driver, url):
             data['xkdjkdk']["jrrq1"] = datetime.fromtimestamp(int(time.time()), pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d')
             data['xkdjkdk']["time"] = datetime.fromtimestamp(int(time.time()), pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d')
             return data, cookie
+    return None, None
 
-def daka(driver, username, password):
+def daka(username, password):
+
     headers = {
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate, br",
@@ -160,23 +171,33 @@ def daka(driver, username, password):
         "Origin": "https://ehallplatform.xust.edu.cn"
     }
 
+    driver = getDriver(False)
+
+    # wait = WebDriverWait(driver, 3)  # 后面可以使用wait对特定元素进行等待
     UID = getUID(driver, "http://ids.xust.edu.cn/authserver/login?service=http://ehallmobile.xust.edu.cn/ossh_server/mobileCaslogin", username_text, password_text)
     if UID == None:
         print("获取UID失败")
         return "error"
+    else:
+        print("获取UID成功")
 
-    url = "https://ehallplatform.xust.edu.cn/default/jkdk/mobile/mobJkdkAdd_test.jsp?uid=" + UID
+    url = "http://ehallplatform.xust.edu.cn/default/jkdk/mobile/mobJkdkAdd_test.jsp?uid=" + UID
     data, cookies = getDataAndCookies(driver, url)
+    if data == None or cookies == None:
+        print("个人信息获取失败")
+        return "error"
     headers["Cookie"] = cookies
 
-    r = requests.post("https://ehallplatform.xust.edu.cn/default/jkdk/mobile/com.primeton.eos.jkdk.xkdjkdkbiz.jt.biz.ext", json = data, headers = headers)
-    
+    r = requests.post("http://ehallplatform.xust.edu.cn/default/jkdk/mobile/com.primeton.eos.jkdk.xkdjkdkbiz.jt.biz.ext", json = data, headers = headers)
+
+    driver.quit()
     if r._content == b'{}':
+        print("获取个人信息成功")
         return "success"
     else:
         return "error"
     return "error"
-    
+
 
 if __name__ == '__main__':
     # 从configuration.ini获取参数
