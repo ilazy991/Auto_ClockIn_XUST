@@ -13,10 +13,8 @@ import sys,traceback
 import time
 from datetime import datetime
 import pytz
-import configparser
 import json
 
-from setmail import setmail
 
 
 
@@ -200,11 +198,6 @@ def daka(username, password):
 
 
 if __name__ == '__main__':
-    # 从configuration.ini获取参数
-    cf = configparser.RawConfigParser()
-    path = os.path.dirname(os.path.abspath(__file__)) + "/config.ini"
-    cf.read(path, encoding='utf-8')
-
 
     driver = getDriver(False)
     wait = WebDriverWait(driver, 3)  # 后面可以使用wait对特定元素进行等待
