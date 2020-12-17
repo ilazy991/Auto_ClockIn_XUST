@@ -24,10 +24,10 @@ prefs = {"profile.managed_default_content_settings.images": 2, 'permissions.defa
 chrome_options.add_experimental_option("prefs", prefs)
 
 
-# chrome_options.add_argument('window-size=1024,768')  # 16年之后，chrome给出的解决办法，抢了PhantomJS饭碗
-# chrome_options.add_argument('--headless')  # 16年之后，chrome给出的解决办法，抢了PhantomJS饭碗
-# chrome_options.add_argument('--disable-gpu')
-# chrome_options.add_argument('--no-sandbox')  # root用户不加这条会无法运行
+chrome_options.add_argument('window-size=1024,768')  # 16年之后，chrome给出的解决办法，抢了PhantomJS饭碗
+chrome_options.add_argument('--headless')  # 16年之后，chrome给出的解决办法，抢了PhantomJS饭碗
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--no-sandbox')  # root用户不加这条会无法运行
 # driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
 
 
@@ -172,41 +172,3 @@ if "MSG_TO" in os.environ:
     MSG_TO = os.environ["MSG_TO"]
 
 daka(USERNAME_TEXT, PASSWORD_TEXT, SERVERPUSHKEY, MSG_TO)
-# if __name__ == '__main__':
-#     # 从configuration.ini获取参数
-#     cf = configparser.RawConfigParser()
-#     path = os.path.dirname(os.path.abspath(__file__)) + "/config.ini"
-#     cf.read(path, encoding='utf-8')
-#     chromePath = cf.get("COMMON", 'chromePath')
-#
-#
-#     for select in cf.sections():
-#
-#
-#         if(select == "COMMON" or select == "MAIL" ):
-#             continue
-#
-#         username_text = cf.get(select, 'username_text')
-#         password_text = cf.get(select, 'password_text')
-#         msg_to = cf.get(select, 'msg_to')
-#
-#         status= ""
-#         print("开始为"+username_text+"打卡")
-#         try:
-#             status = daka(username_text, password_text)
-#         except Exception as e:
-#             print(traceback.format_exc())
-#         if(status == "error"):
-#             print("重新再次打卡")
-#             try:
-#                 status = daka(username_text, password_text)
-#             except Exception as e:
-#                 print(traceback.format_exc())
-#
-#         if status == "success":
-#             if username_text != "18207037004":
-#                 setmail(path, "打卡成功"+datetime.fromtimestamp(int(time.time()), pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S'), msg_to)
-#             print("打卡成功"+username_text)
-#         # else:
-#             setmail(path, "打卡失败"+username_text, msg_to)
-#             print("打卡失败"+username_text)
