@@ -1,4 +1,1 @@
-requests==2.21.0
-pytz==2018.7
 selenium
-selenium-wire==2.1.2
