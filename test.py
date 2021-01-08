@@ -52,12 +52,12 @@ def fun1(username_text, password_text):
             driver.find_element_by_xpath(
                 '/html/body/uni-app/uni-page/uni-page-wrapper/uni-page-body/uni-scroll-view/div/div/div/uni-view/uni-scroll-view/div/div/div/uni-view[1]').click()
             # driver.find_element_by_css_selector('').click()
+            
+            driver.find_element_by_xpath('/html/body/uni-app/uni-page/uni-page-wrapper/uni-page-body/uni-view/uni-view[2]/uni-button').click()
             time.sleep(3)
         except Exception as e:
             print(e)
             pass
-        driver.find_element_by_xpath(
-            '/html/body/uni-app/uni-page/uni-page-wrapper/uni-page-body/uni-view/uni-view[2]/uni-button').click()
         # "/html/body/uni-app/uni-page/uni-page-wrapper/uni-page-body/uni-view/uni-view[2]/uni-button"
         time.sleep(1)
         # # 获取继续打卡按钮并点击
