@@ -53,8 +53,9 @@ def fun1(username_text, password_text):
                 '/html/body/uni-app/uni-page/uni-page-wrapper/uni-page-body/uni-scroll-view/div/div/div/uni-view/uni-scroll-view/div/div/div/uni-view[1]').click()
             # driver.find_element_by_css_selector('').click()
             
-            driver.find_element_by_xpath('/html/body/uni-app/uni-page/uni-page-wrapper/uni-page-body/uni-view/uni-view[2]/uni-button').click()
             time.sleep(3)
+            
+            driver.find_element_by_xpath('/html/body/uni-app/uni-page/uni-page-wrapper/uni-page-body/uni-view/uni-view[2]/uni-button').click()
         except Exception as e:
             print(e)
             pass
