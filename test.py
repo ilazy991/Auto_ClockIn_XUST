@@ -47,7 +47,7 @@ def fun1(username_text, password_text):
         # 获取登录按键并点击登录
         driver.find_element_by_xpath('// *[ @ id = "load"]').click()
         print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "\t" + str(username_text) + "\n成功登陆")
-        time.sleep(1)
+        time.sleep(3)
         try:
             driver.find_element_by_xpath(
                 '/html/body/uni-app/uni-page/uni-page-wrapper/uni-page-body/uni-scroll-view/div/div/div/uni-view/uni-scroll-view/div/div/div/uni-view[1]').click()
@@ -67,7 +67,7 @@ def fun1(username_text, password_text):
         # target.click()
 
         # driver.find_element_by_xpath("/html/body/div/div[3]/p/span[1]").click()
-        time.sleep(1)
+        time.sleep(3)
 
         # 获取点击获取详细地址按钮并点击
         # target = driver.find_element_by_xpath("//*[text()='点击获取详细地址']")
