@@ -36,6 +36,13 @@
 如果需要修改每日任务执行的时间，请修改 `.github/workflows/运行.yml`，找到下如下配置。
 
 ```yml
+#   push:
+#     branches:
+#       - main
+#   schedule:
+#     - cron: '10 3 * * *'
+#     - cron: '10 11 * * *'
+#取消以上注释
   schedule:
     - cron: '19 10 * * *'
     # cron表达式，Actions时区是UTC时间，所以下午18点要往前推8个小时。
