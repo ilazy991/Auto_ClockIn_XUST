@@ -4,13 +4,9 @@
 name: 运行
 
 on:
-  fork:
-#   push:
-#     branches:
-#       - main
-#   schedule:
-#     - cron: '10 3 * * *'
-#     - cron: '10 11 * * *'
+  schedule:
+    - cron: '10 3 * * *'
+    - cron: '10 11 * * *'
 
     
 jobs:
