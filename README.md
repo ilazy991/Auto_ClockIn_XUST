@@ -1,8 +1,8 @@
 <div align="center">
 <h1 align="center">
-西安科技大学每日自动健康打卡
+西安科技大学自动健康打卡
  </h1>
-
+ 
 
 </div>
 
