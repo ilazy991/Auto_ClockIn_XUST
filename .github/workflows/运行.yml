@@ -1,9 +1,11 @@
 # This workflows will upload a Python Package using Twine when a release is created
 # For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
 
-name: 运行1
+name: 运行
 
 on:
+  push:
+  
   schedule:
     - cron: '10 3 * * *'
     - cron: '10 11 * * *'
