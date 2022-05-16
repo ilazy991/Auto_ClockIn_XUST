@@ -8,7 +8,7 @@ on:
   
   schedule:
     - cron: '10 9 * * *'
-# run every day at 9:00 in UTC+8
+# run every day at 17:10 in UTC+8
     
 jobs:
   TEST:
