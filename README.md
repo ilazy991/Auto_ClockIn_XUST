@@ -48,7 +48,7 @@
     # cron表达式，Actions时区是UTC时间，所以下午18点要往前推8个小时。
     # 示例： 每天晚上22点30执行 '30 14 * * *'
 ```
-
+https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows cron语法参考
 
 **请各位使用 Actions 时务必遵守Github条款。不要滥用Actions服务。**
 
