@@ -7,9 +7,8 @@ on:
   push:
   
   schedule:
-    - cron: '10 3 * * *'
-    - cron: '10 11 * * *'
-
+    - cron: '10 9 * * *'
+# run every day at 9:00 in UTC+8
     
 jobs:
   TEST:
