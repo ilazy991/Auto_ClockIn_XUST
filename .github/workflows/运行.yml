@@ -7,7 +7,7 @@ on:
   push:
   
   schedule:
-    - cron: '27 1 * * *'
+    - cron: '33 10 * * *'
 # run every day at 17:10 in UTC+8
     
 jobs:
