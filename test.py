@@ -36,9 +36,8 @@ def fun1(uid):
     driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
     try:
         wait = WebDriverWait(driver, 3)  # 后面可以使用wait对特定元素进行等待
-        # 3.访问西科E站登录页面
+        # 3.访问打卡页面并模拟点击来打卡
         url_login = "http://ehallplatform.xust.edu.cn/default/jkdk/mobile/mobJkdkAdd_test.jsp?uid="+ uid
-
         driver.get(url_login)
 
         time.sleep(3)
