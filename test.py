@@ -134,7 +134,7 @@ def daka(uid, SERVERPUSHKEY, MSG_TO):
     else:
         pass
 
-uid=os.environ["uid"]
+UID=os.environ["UID"]
 SERVERPUSHKEY = None
 MSG_TO = None
 if "SERVERPUSHKEY" in os.environ:
@@ -142,4 +142,4 @@ if "SERVERPUSHKEY" in os.environ:
 if "MSG_TO" in os.environ:
     MSG_TO = os.environ["MSG_TO"]
 
-daka(uid, SERVERPUSHKEY, MSG_TO)
+daka(UID, SERVERPUSHKEY, MSG_TO)
