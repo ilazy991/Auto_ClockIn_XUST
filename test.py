@@ -32,45 +32,17 @@ chrome_options.add_argument('--no-sandbox')  # root用户不加这条会无法�
 
 
 # 1.打开浏览器
-def fun1(username_text, password_text):
+def fun1(uid):
     driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
     try:
         wait = WebDriverWait(driver, 3)  # 后面可以使用wait对特定元素进行等待
         # 3.访问西科E站登录页面
-        url_login = 'http://ids.xust.edu.cn/authserver/login?service=http%3A%2F%2Fehallmobile.xust.edu.cn%2Fossh_server%2FmobileCaslogin'
+        url_login = "http://ehallplatform.xust.edu.cn/default/jkdk/mobile/mobJkdkAdd_test.jsp?uid="+ uid
 
         driver.get(url_login)
-        # 获取用户与密码输入框并输入
-        time.sleep(1)
-        driver.find_element_by_xpath('//*[@id="mobileUsername"]').send_keys(username_text)
-        driver.find_element_by_xpath('//*[@id="mobilePassword"]').send_keys(password_text)
-        # 获取登录按键并点击登录
-        driver.find_element_by_xpath('// *[ @ id = "load"]').click()
-        print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "\t" + str(username_text) + "\n成功登陆")
-        time.sleep(3)
-        try:
-            driver.find_element_by_xpath(
-                '/html/body/uni-app/uni-page/uni-page-wrapper/uni-page-body/uni-scroll-view/div/div/div/uni-view/uni-scroll-view/div/div/div/uni-view[1]').click()
-            # driver.find_element_by_css_selector('').click()
-            
-            time.sleep(3)
-            
-            driver.find_element_by_xpath('/html/body/uni-app/uni-page/uni-page-wrapper/uni-page-body/uni-view/uni-view[2]/uni-button').click()
-        except Exception as e:
-            print(e)
-            pass
-        # "/html/body/uni-app/uni-page/uni-page-wrapper/uni-page-body/uni-view/uni-view[2]/uni-button"
-        time.sleep(1)
-        # # 获取继续打卡按钮并点击
-        # target = driver.find_element_by_xpath("//*[text()='继续打卡']")
-        # time.sleep(3)  # 定位到之后等待3s执行click()
-        # target.click()
 
-        # driver.find_element_by_xpath("/html/body/div/div[3]/p/span[1]").click()
         time.sleep(3)
 
-        # 获取点击获取详细地址按钮并点击
-        # target = driver.find_element_by_xpath("//*[text()='点击获取详细地址']")
         driver.execute_script('$("#ssq").show();')
         driver.execute_script('$("#xxd").show();')
         driver.execute_script('$("#hqddlx").val("2");')
@@ -84,7 +56,6 @@ def fun1(username_text, password_text):
         driver.execute_script('''$("#weidu").val('34.231581');''')
 
         time.sleep(1)
-        # input = WebDriverWait(driver, 50).until(EC.visibility_of_any_elements_located((By.CSS_SELECTOR, 'input.srk.jiaodian')))
         input = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input.srk.jiaodian')))
 
         target = driver.find_elements_by_css_selector('input.srk.jiaodian')[1]
@@ -121,7 +92,7 @@ def fun1(username_text, password_text):
         try:
             driver.find_elements_by_xpath("//*[text()='已完成']")
             driver.quit()
-            print(username_text + "\t打卡成功")
+            print("\t打卡成功")
             return True, "none"
         except Exception as e:
             print(traceback.format_exc())
@@ -134,14 +105,14 @@ def fun1(username_text, password_text):
         return False, e
 
 
-def daka(USERNAME_TEXT, PASSWORD_TEXT, SERVERPUSHKEY, MSG_TO):
+def daka(uid, SERVERPUSHKEY, MSG_TO):
 
 
-    status, e = fun1(USERNAME_TEXT, PASSWORD_TEXT)
+    status, e = fun1(uid)
     desp = ""
     if (status == False):
         print("重新再次打卡")
-        status, e = fun1(USERNAME_TEXT, PASSWORD_TEXT)
+        status, e = fun1(uid)
         if (status == False):
             text = "打卡失败:"
             print("打卡失败")
@@ -163,8 +134,7 @@ def daka(USERNAME_TEXT, PASSWORD_TEXT, SERVERPUSHKEY, MSG_TO):
     else:
         pass
 
-USERNAME_TEXT = os.environ["USERNAME_TEXT"]
-PASSWORD_TEXT = os.environ["PASSWORD_TEXT"]
+uid=os.environ["uid"]
 SERVERPUSHKEY = None
 MSG_TO = None
 if "SERVERPUSHKEY" in os.environ:
@@ -172,4 +142,4 @@ if "SERVERPUSHKEY" in os.environ:
 if "MSG_TO" in os.environ:
     MSG_TO = os.environ["MSG_TO"]
 
-daka(USERNAME_TEXT, PASSWORD_TEXT, SERVERPUSHKEY, MSG_TO)
+daka(uid, SERVERPUSHKEY, MSG_TO)
