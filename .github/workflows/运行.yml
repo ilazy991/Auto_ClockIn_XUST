@@ -7,9 +7,8 @@ on:
   push:
   
   schedule:
-    - cron: '10 3 * * *'
-    - cron: '10 11 * * *'
-
+    - cron: '10 9 * * *'
+# run every day at 17:10 in UTC+8
     
 jobs:
   TEST:
@@ -35,8 +34,7 @@ jobs:
         sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional, disables headless mode
     - name: Working
       env:  
-        USERNAME_TEXT: ${{ secrets.USERNAME_TEXT }}
-        PASSWORD_TEXT: ${{ secrets.PASSWORD_TEXT }}
+        UID: ${{secrets.UID}}
         SERVERPUSHKEY: ${{ secrets.SERVERPUSHKEY }}
         MSG_TO: ${{ secrets.MSG_TO }}
       run: python test.py

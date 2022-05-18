@@ -1,6 +1,6 @@
 <div align="center">
 <h1 align="center">
-西安科技大学自动健康打卡
+西安科技大学自动健康打卡 自用 需要请去源项目看
  </h1>
  
 
@@ -17,13 +17,14 @@
 # 使用说明
 1. **Fork 本项目**
 
-2. **点击项目 Settings -> Secrets -> New Secrets 添加以下2个 Secrets。**
+2. **点击项目 Settings -> Secrets -> New Secrets 添加以下1个 Secret。**
 
-| Name       | Value            |
-| ---------- | ---------------- |
-| USERNAME_TEXT | 西科E站账号 |
-| PASSWORD_TEXT   | 西科E站密码 |
+| Name | Value |
+|------|-----|
+| UID  | UID |
 
+UID的获取： 自主进入健康打卡页面（如遇到需要先填写返校承诺书的情况先完成返校承诺书再继续进入健康打卡页面)，然后右上角
+copy url， 将url尾部的uid=‘这就是我们要的uid’复制下来 （uid末尾的‘=’符号是uid的一部分）
 
 3. **如需微信订阅通知请如下操作**  
 1 前往 [sc.ftqq.com](http://sc.ftqq.com/3.version) 点击登入，创建账号（建议使用 GitHub 登录）。  
@@ -36,19 +37,14 @@
 如果需要修改每日任务执行的时间，请修改 `.github/workflows/运行.yml`，找到下如下配置。
 
 ```yml
-#   push:
-#     branches:
-#       - main
-#   schedule:
-#     - cron: '10 3 * * *'
-#     - cron: '10 11 * * *'
-#取消以上注释
   schedule:
-    - cron: '19 10 * * *'
+    - cron: '10 9 * * *'
     # cron表达式，Actions时区是UTC时间，所以下午18点要往前推8个小时。
     # 示例： 每天晚上22点30执行 '30 14 * * *'
+    # 本仓库默认中国时间(utc+8)的17：10分打卡
 ```
-
+cron语法 - cron: '分钟 小时（utc+0,的时间 简单来说就是想要打卡的中国时间的小时-8小时） * * *'
+https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows cron语法参考
 
 **请各位使用 Actions 时务必遵守Github条款。不要滥用Actions服务。**
 
