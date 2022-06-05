@@ -48,9 +48,9 @@ def fun1(uid):
         driver.execute_script('$("#guo").val("中国");')
         driver.execute_script('''$("#sheng").val('陕西省');''')
         driver.execute_script('''$("#shi").val('西安市');''')
-        driver.execute_script('''$("#xian").val('碑林区');''')
-        driver.execute_script('''$("#szdd4").val('中国 陕西省 西安市 碑林区');''')
-        driver.execute_script('''$(".szdd4").text('中国 陕西省 西安市 碑林区');''')
+        driver.execute_script('''$("#xian").val('临潼区');''')
+        driver.execute_script('''$("#szdd4").val('中国 陕西省 西安市 临潼区');''')
+        driver.execute_script('''$(".szdd4").text('中国 陕西省 西安市 临潼区');''')
         driver.execute_script('''$("#jingdu").val('108.967363');''')
         driver.execute_script('''$("#weidu").val('34.231581');''')
 
