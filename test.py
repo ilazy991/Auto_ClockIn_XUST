@@ -23,11 +23,12 @@ chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)  # �
 prefs = {"profile.managed_default_content_settings.images": 2, 'permissions.default.stylesheet': 2}  # 禁止加载图片和CSS样式
 chrome_options.add_experimental_option("prefs", prefs)
 
-
 chrome_options.add_argument('window-size=1024,768')  # 16年之后，chrome给出的解决办法，抢了PhantomJS饭碗
 chrome_options.add_argument('--headless')  # 16年之后，chrome给出的解决办法，抢了PhantomJS饭碗
 chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--no-sandbox')  # root用户不加这条会无法运行
+
+
 # driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
 
 
@@ -37,7 +38,7 @@ def fun1(uid):
     try:
         wait = WebDriverWait(driver, 3)  # 后面可以使用wait对特定元素进行等待
         # 3.访问打卡页面并模拟点击来打卡
-        url_login = "http://ehallplatform.xust.edu.cn/default/jkdk/mobile/mobJkdkAdd_test.jsp?uid="+ uid
+        url_login = "http://ehallplatform.xust.edu.cn/default/jkdk/mobile/mobJkdkAdd_test.jsp?uid=" + uid
         driver.get(url_login)
 
         time.sleep(3)
@@ -60,7 +61,6 @@ def fun1(uid):
         target = driver.find_elements(By.CSS_SELECTOR, 'input.srk.jiaodian')[1]
         driver.execute_script("arguments[0].scrollIntoView();", target)
 
-
         time.sleep(2)
         driver.find_elements(By.CSS_SELECTOR, 'input.srk.jiaodian')[1].click()
 
@@ -79,8 +79,8 @@ def fun1(uid):
             # if radio.get_attribute(u"name") == u"jrtwfw5" and radio.get_attribute(u"value") == u"正常体温:36～37.2℃":
             #     if not radio.is_selected():
             #         radio.click()
-        # 获取提交按钮并点击	jiaodian = driver.find_elements_by_xpath('//*[@id="xxd"]/ul/li/input')[0]
-        driver.find_element_by_css_selector('span#submit').click()
+        # 获取提交按钮并点击	jiaodian = driver.find_elements(By.XPATH, '//*[@id="xxd"]/ul/li/input')[0]
+        driver.find_element(By.CSS_SELECTOR, 'span#submit').click()
 
         dig_confirm = driver.switch_to.alert
         # 打印对话框的内容
@@ -89,7 +89,7 @@ def fun1(uid):
         dig_confirm.accept()
 
         try:
-            driver.find_elements_by_xpath("//*[text()='已完成']")
+            driver.find_elements(By.XPATH, "//*[text()='已完成']")
             driver.quit()
             print("\t打卡成功")
             return True, "none"
@@ -105,35 +105,32 @@ def fun1(uid):
 
 
 def daka(uid, SERVERPUSHKEY, MSG_TO):
-
-
     status, e = fun1(uid)
-    desp = ""
-    if (status == False):
+    error_info = ""
+    if not status:
         print("重新再次打卡")
         status, e = fun1(uid)
-        if (status == False):
+        if not status:
             text = "打卡失败:"
             print("打卡失败")
-            desp = str(e)
+            error_info = str(e)
         else:
             text = "打卡成功:"
     else:
         text = "打卡成功:"
 
-    if SERVERPUSHKEY:
-        if text == "打卡失败:":
-            driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
-            url = "https://sc.ftqq.com/" + SERVERPUSHKEY + ".send?text=" + text
-            if (len(desp)):
-                url += "desp=" + desp
-            driver.get(url)
+    if text == "打卡失败:" and SERVERPUSHKEY:
+        driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
+        url = "https://sc.ftqq.com/" + SERVERPUSHKEY + ".send?text=" + text
+        if len(error_info):
+            url += "error_info=" + error_info
+        driver.get(url)
     elif MSG_TO:
         pass
     else:
         pass
 
-UID=os.environ["UID"]
+UID = os.environ["UID"]
 SERVERPUSHKEY = None
 MSG_TO = None
 if "SERVERPUSHKEY" in os.environ:
