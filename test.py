@@ -57,19 +57,19 @@ def fun1(uid):
         time.sleep(1)
         input = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input.srk.jiaodian')))
 
-        target = driver.find_elements_by_css_selector('input.srk.jiaodian')[1]
+        target = driver.find_elements(By.CSS_SELECTOR, 'input.srk.jiaodian')[1]
         driver.execute_script("arguments[0].scrollIntoView();", target)
 
 
         time.sleep(2)
-        driver.find_elements_by_css_selector('input.srk.jiaodian')[1].click()
+        driver.find_elements(By.CSS_SELECTOR, 'input.srk.jiaodian')[1].click()
 
         driver.switch_to.active_element.send_keys(u'西安科技大学')
 
         # 今日体温
         jQuery = r'$("input[name=\'jrtwfw5\']")[0].click()'
         driver.execute_script(jQuery)
-        radios = driver.find_elements_by_css_selector('input[type=radio]')
+        radios = driver.find_elements(By.CSS_SELECTOR, 'input[type=radio]')
         for radio in radios:
             if radio.get_attribute(u"name") == u"jrsfzx3" and radio.get_attribute(u"value") == u"是":
                 if not radio.is_selected():
