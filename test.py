@@ -107,15 +107,15 @@ def fun1(uid):
 def daka(uid, SERVERPUSHKEY, MSG_TO):
     status, e = fun1(uid)
     error_info = ""
-    if not status:
-        print("重新再次打卡")
-        status, e = fun1(uid)
+    retry_times=2
+    for i in range(retry_times):
         if not status:
-            text = "打卡失败:"
-            print("打卡失败")
-            error_info = str(e)
-        else:
-            text = "打卡成功:"
+            print("重新再次打卡")
+            status, e = fun1(uid)
+    if not status:
+        text = "打卡失败:"
+        print("打卡失败")
+        error_info = str(e)
     else:
         text = "打卡成功:"
 
@@ -125,6 +125,7 @@ def daka(uid, SERVERPUSHKEY, MSG_TO):
         if len(error_info):
             url += "error_info=" + error_info
         driver.get(url)
+    #原作者留空的MSG_TO 咱也不知道要不要保留
     elif MSG_TO:
         pass
     else:
