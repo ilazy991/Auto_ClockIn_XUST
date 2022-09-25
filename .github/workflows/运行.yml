@@ -7,7 +7,8 @@ on:
   push:
   
   schedule:
-    - cron: '10 9 * * *'
+    #- cron: '10 9 * * *'
+    - cron: '15 23 * * *'
 # run every day at 17:10 in UTC+8
     
 jobs:
@@ -29,7 +30,7 @@ jobs:
         pip install -r requirements.txt
         pip install configparser
         google-chrome --version
-        export DISPLAY=:99
+        export DISPLAY=:99  
         chromedriver --url-base=/wd/hub &
         sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional, disables headless mode
     - name: Working
