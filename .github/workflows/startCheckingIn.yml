@@ -8,6 +8,7 @@ on:
     inputs:
       description:
         description: 'Just run the job manually.'
+        type: string
         required: false
 
   schedule:
