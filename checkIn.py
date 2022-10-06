@@ -33,7 +33,7 @@ chrome_options.add_argument('--no-sandbox')  # root用户不加这条会无法�
 
 
 # 1.打开浏览器
-def fun1(uid):
+def prepare_browser(uid):
     driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
     try:
         wait = WebDriverWait(driver, 3)  # 后面可以使用wait对特定元素进行等待
@@ -104,14 +104,14 @@ def fun1(uid):
         return False, e
 
 
-def daka(uid, SERVERPUSHKEY, MSG_TO):
-    status, e = fun1(uid)
+def check_in(uid, SERVERPUSHKEY):
+    status, e = prepare_browser(uid)
     error_info = ""
-    retry_times=2
+    retry_times = 2
     for i in range(retry_times):
         if not status:
             print("重新再次打卡")
-            status, e = fun1(uid)
+            status, e = prepare_browser(uid)
     if not status:
         text = "打卡失败:"
         print("打卡失败")
@@ -125,18 +125,13 @@ def daka(uid, SERVERPUSHKEY, MSG_TO):
         if len(error_info):
             url += "error_info=" + error_info
         driver.get(url)
-    #原作者留空的MSG_TO 咱也不知道要不要保留
-    elif MSG_TO:
-        pass
-    else:
-        pass
+        time.sleep(60 * 15)
+        check_in(uid, SERVERPUSHKEY)
+
 
 UID = os.environ["UID"]
 SERVERPUSHKEY = None
-MSG_TO = None
 if "SERVERPUSHKEY" in os.environ:
     SERVERPUSHKEY = os.environ["SERVERPUSHKEY"]
-if "MSG_TO" in os.environ:
-    MSG_TO = os.environ["MSG_TO"]
 
-daka(UID, SERVERPUSHKEY, MSG_TO)
+check_in(UID, SERVERPUSHKEY)
