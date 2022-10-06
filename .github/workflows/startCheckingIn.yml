@@ -40,4 +40,4 @@ jobs:
           UID: ${{secrets.UID}}
           SERVERPUSHKEY: ${{ secrets.SERVERPUSHKEY }}
           MSG_TO: ${{ secrets.MSG_TO }}
-        run: python checkIncheckIn.py
+        run: python checkIn.py
