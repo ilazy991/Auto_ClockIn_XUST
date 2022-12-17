@@ -48,12 +48,21 @@ def prepare_browser(uid):
         driver.execute_script('$("#hqddlx").val("2");')
         driver.execute_script('$("#guo").val("中国");')
         driver.execute_script('''$("#sheng").val('陕西省');''')
-        driver.execute_script('''$("#shi").val('西安市');''')
-        driver.execute_script('''$("#xian").val('临潼区');''')
-        driver.execute_script('''$("#szdd4").val('中国 陕西省 西安市 临潼区');''')
-        driver.execute_script('''$(".szdd4").text('中国 陕西省 西安市 临潼区');''')
-        driver.execute_script('''$("#jingdu").val('108.967363');''')
-        driver.execute_script('''$("#weidu").val('34.231581');''')
+#以下是在校时的定位
+#         driver.execute_script('''$("#shi").val('西安市');''')
+#         driver.execute_script('''$("#xian").val('临潼区');''')
+#         driver.execute_script('''$("#szdd4").val('中国 陕西省 西安市 临潼区');''')
+#         driver.execute_script('''$(".szdd4").text('中国 陕西省 西安市 临潼区');''')
+#         driver.execute_script('''$("#jingdu").val('108.967363');''')
+#         driver.execute_script('''$("#weidu").val('34.231581');''')
+#以下是咸阳帝都酒店的经纬度34.314050719379395, 108.67295111320789
+#中国陕西省咸阳市秦都区中华西路中华西路长虹路十字西北角 邮政编码: 712099
+        driver.execute_script('''$("#shi").val('咸阳市');''')
+        driver.execute_script('''$("#xian").val('秦都区');''')
+        driver.execute_script('''$("#szdd4").val('中国 陕西省 咸阳市 秦都区');''')
+        driver.execute_script('''$(".szdd4").text('中国 陕西省 咸阳市 秦都区');''')
+        driver.execute_script('''$("#jingdu").val('108.672951');''')
+        driver.execute_script('''$("#weidu").val('34.314050');''')
 
         time.sleep(1)
         input = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input.srk.jiaodian')))
