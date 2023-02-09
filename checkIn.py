@@ -23,21 +23,22 @@ chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)  # �
 prefs = {"profile.managed_default_content_settings.images": 2, 'permissions.default.stylesheet': 2}  # 禁止加载图片和CSS样式
 chrome_options.add_experimental_option("prefs", prefs)
 
-
 chrome_options.add_argument('window-size=1024,768')  # 16年之后，chrome给出的解决办法，抢了PhantomJS饭碗
 chrome_options.add_argument('--headless')  # 16年之后，chrome给出的解决办法，抢了PhantomJS饭碗
 chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--no-sandbox')  # root用户不加这条会无法运行
+
+
 # driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
 
 
 # 1.打开浏览器
-def fun1(uid):
+def prepare_browser(uid):
     driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
     try:
         wait = WebDriverWait(driver, 3)  # 后面可以使用wait对特定元素进行等待
         # 3.访问打卡页面并模拟点击来打卡
-        url_login = "http://ehallplatform.xust.edu.cn/default/jkdk/mobile/mobJkdkAdd_test.jsp?uid="+ uid
+        url_login = "http://ehallplatform.xust.edu.cn/default/jkdk/mobile/mobJkdkAdd_test.jsp?uid=" + uid
         driver.get(url_login)
 
         time.sleep(3)
@@ -47,29 +48,37 @@ def fun1(uid):
         driver.execute_script('$("#hqddlx").val("2");')
         driver.execute_script('$("#guo").val("中国");')
         driver.execute_script('''$("#sheng").val('陕西省');''')
+#以下是在校时的定位
         driver.execute_script('''$("#shi").val('西安市');''')
-        driver.execute_script('''$("#xian").val('碑林区');''')
-        driver.execute_script('''$("#szdd4").val('中国 陕西省 西安市 碑林区');''')
-        driver.execute_script('''$(".szdd4").text('中国 陕西省 西安市 碑林区');''')
+        driver.execute_script('''$("#xian").val('临潼区');''')
+        driver.execute_script('''$("#szdd4").val('中国 陕西省 西安市 临潼区');''')
+        driver.execute_script('''$(".szdd4").text('中国 陕西省 西安市 临潼区');''')
         driver.execute_script('''$("#jingdu").val('108.967363');''')
         driver.execute_script('''$("#weidu").val('34.231581');''')
+#以下是咸阳帝都酒店的经纬度34.314050719379395, 108.67295111320789
+#中国陕西省咸阳市秦都区中华西路中华西路长虹路十字西北角 邮政编码: 712099
+#        driver.execute_script('''$("#shi").val('咸阳市');''')
+#        driver.execute_script('''$("#xian").val('秦都区');''')
+#        driver.execute_script('''$("#szdd4").val('中国 陕西省 咸阳市 秦都区');''')
+#        driver.execute_script('''$(".szdd4").text('中国 陕西省 咸阳市 秦都区');''')
+#        driver.execute_script('''$("#jingdu").val('108.672951');''')
+#        driver.execute_script('''$("#weidu").val('34.314050');''')
 
         time.sleep(1)
         input = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input.srk.jiaodian')))
 
-        target = driver.find_elements_by_css_selector('input.srk.jiaodian')[1]
+        target = driver.find_elements(By.CSS_SELECTOR, 'input.srk.jiaodian')[1]
         driver.execute_script("arguments[0].scrollIntoView();", target)
 
-
         time.sleep(2)
-        driver.find_elements_by_css_selector('input.srk.jiaodian')[1].click()
+        driver.find_elements(By.CSS_SELECTOR, 'input.srk.jiaodian')[1].click()
 
         driver.switch_to.active_element.send_keys(u'西安科技大学')
 
         # 今日体温
         jQuery = r'$("input[name=\'jrtwfw5\']")[0].click()'
         driver.execute_script(jQuery)
-        radios = driver.find_elements_by_css_selector('input[type=radio]')
+        radios = driver.find_elements(By.CSS_SELECTOR, 'input[type=radio]')
         for radio in radios:
             if radio.get_attribute(u"name") == u"jrsfzx3" and radio.get_attribute(u"value") == u"是":
                 if not radio.is_selected():
@@ -79,8 +88,8 @@ def fun1(uid):
             # if radio.get_attribute(u"name") == u"jrtwfw5" and radio.get_attribute(u"value") == u"正常体温:36～37.2℃":
             #     if not radio.is_selected():
             #         radio.click()
-        # 获取提交按钮并点击	jiaodian = driver.find_elements_by_xpath('//*[@id="xxd"]/ul/li/input')[0]
-        driver.find_element_by_css_selector('span#submit').click()
+        # 获取提交按钮并点击	jiaodian = driver.find_elements(By.XPATH, '//*[@id="xxd"]/ul/li/input')[0]
+        driver.find_element(By.CSS_SELECTOR, 'span#submit').click()
 
         dig_confirm = driver.switch_to.alert
         # 打印对话框的内容
@@ -89,7 +98,7 @@ def fun1(uid):
         dig_confirm.accept()
 
         try:
-            driver.find_elements_by_xpath("//*[text()='已完成']")
+            driver.find_elements(By.XPATH, "//*[text()='已完成']")
             driver.quit()
             print("\t打卡成功")
             return True, "none"
@@ -104,41 +113,34 @@ def fun1(uid):
         return False, e
 
 
-def daka(uid, SERVERPUSHKEY, MSG_TO):
-
-
-    status, e = fun1(uid)
-    desp = ""
-    if (status == False):
-        print("重新再次打卡")
-        status, e = fun1(uid)
-        if (status == False):
-            text = "打卡失败:"
-            print("打卡失败")
-            desp = str(e)
-        else:
-            text = "打卡成功:"
+def check_in(uid, SERVERPUSHKEY):
+    status, e = prepare_browser(uid)
+    error_info = ""
+    retry_times = 2
+    for i in range(retry_times):
+        if not status:
+            print("重新再次打卡")
+            status, e = prepare_browser(uid)
+    if not status:
+        text = "打卡失败:"
+        print("打卡失败")
+        error_info = str(e)
     else:
         text = "打卡成功:"
 
-    if SERVERPUSHKEY:
-        if text == "打卡失败:":
-            driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
-            url = "https://sc.ftqq.com/" + SERVERPUSHKEY + ".send?text=" + text
-            if (len(desp)):
-                url += "desp=" + desp
-            driver.get(url)
-    elif MSG_TO:
-        pass
-    else:
-        pass
+    if text == "打卡失败:" and SERVERPUSHKEY:
+        driver = webdriver.Chrome(options=chrome_options)  # 获取浏览器句柄
+        url = "https://sc.ftqq.com/" + SERVERPUSHKEY + ".send?text=" + text
+        if len(error_info):
+            url += "error_info=" + error_info
+        driver.get(url)
+        time.sleep(60 * 15)
+        check_in(uid, SERVERPUSHKEY)
 
-UID=os.environ["UID"]
+
+UID = os.environ["UID"]
 SERVERPUSHKEY = None
-MSG_TO = None
 if "SERVERPUSHKEY" in os.environ:
     SERVERPUSHKEY = os.environ["SERVERPUSHKEY"]
-if "MSG_TO" in os.environ:
-    MSG_TO = os.environ["MSG_TO"]
 
-daka(UID, SERVERPUSHKEY, MSG_TO)
+check_in(UID, SERVERPUSHKEY)
